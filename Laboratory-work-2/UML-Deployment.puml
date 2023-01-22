@@ -1,0 +1,56 @@
+@startuml
+title UML-діаграма розгортання ПП
+
+left to right direction
+
+skinparam componentStyle uml1
+
+node "<<AndroidApp>>" as androidapplication {
+    node "<<Operating System Android>" {
+        node "<<Application>>" {
+            component [*.apk] as application
+        }
+    }
+}
+
+
+node "<<Ktor Web Server>>" as ktorserver {
+    component [TravelController] as travelcontroller
+    component [UserController] as usercontroller
+    component [TravelService] as travelservice
+    component [UserService] as userservice
+    component [AppRepository] as apprepository
+    component [TravelModel] as travelmodel
+    component [UserModel] as usermodel
+}
+
+androidapplication <<-->> travelcontroller
+androidapplication <<-->> usercontroller
+
+travelservice --* travelcontroller
+userservice --* usercontroller
+
+apprepository --* travelservice
+apprepository --* userservice
+
+apprepository ~~> travelmodel : use 
+apprepository ~~> usermodel : use 
+
+
+node "<<Database Server>>" as serverdatabase {
+    database PosgreSQL as posgtgescomponent    
+}
+
+ktorserver <<-->> serverdatabase
+
+
+
+
+node "<<Google API>>" as googleapi {
+	component [Google API Client Library] as googlelibrary
+}
+
+googlelibrary <<-->> androidapplication
+
+
+@enduml

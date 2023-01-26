@@ -5,7 +5,7 @@ AS $$
 DECLARE
 	str VARCHAR;
 BEGIN
-	str := ''SELECT s_id, stud_name, kurs from public.student where name = ''' || student_name || ''''; 
+	str := ''SELECT s_id, stud_name, kurs from public.student where stud_name = ''' || student_name || ''''; 
 	RAISE NOTICE 'Query=%',str;
 	RETURN QUERY EXECUTE str;
 END;

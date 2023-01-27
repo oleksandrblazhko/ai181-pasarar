@@ -6,7 +6,7 @@ DECLARE
 str VARCHAR;
 BEGIN
 	CALL sso_control(v_user_name,v_token);
-	str := 'SELECT s_id, stud_name, kurs from public.student where name = $1';
+	str := 'SELECT s_id, stud_name, kurs from public.student where stud_name = $1';
 	RAISE NOTICE 'Query=%',str;
 	RETURN QUERY EXECUTE str USING human_name;
 END;
